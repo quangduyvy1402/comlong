@@ -5,7 +5,7 @@ const { promisify } = require('util');
 const creds = require('./client_secret.json');
 
 async function accessSpreadsheet() {
-    const doc = new GoogleSpreadsheet('1E2MxDD7BuYWVKqiGh_qNg7DkxLeoKFjG_8NlhwtjXxY');
+    const doc = new GoogleSpreadsheet('1AKuJ5SOaqCR5Rwi5shC38rqAHBf8qSCJ-sLZSuNpe7A');
     await promisify(doc.useServiceAccountAuth)(creds);
     const info = await promisify(doc.getInfo)();
     const sheet = info.worksheets[3];
