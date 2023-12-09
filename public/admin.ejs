@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Lịch sử ăn cơm</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+    <header class="navbar navbar-expand navbar-dark flex-md-row" style="background-color: #563d7c">
+        <h3 class="text-white">Quán cơm yêu thương</h3>                    
+    </header>
+
+    <div class="container">       
+        <form method="GET" action="admin">
+            <div class="form-group input-group mx-auto pt-2 col-lg-4 col-sm-8 col-xs-12">
+                <div class="col">
+                    <input type="text" name="account" class="form-control text-center" id="account" value="<%=account%>" placeholder="Nhập account của bạn">
+                </div>
+                <button type="submit" class="btn btn-success">Confirm</button>
+            </div>
+        </form>
+            
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Ngày</th>
+                    <th>Món</th>
+                    <th>Topping</th>
+                    <th>Giá</th>
+                    <th>Đã trả</th>
+                    <th style="width: 20%">Ghi chú</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for (var i = 0; i < rows.length; i++) { %>
+                    <tr>
+                        <td><%= rows[i].date %></td>
+                        <td><%= rows[i].food %></td>
+                        <td><%= rows[i].topping %></td>
+                        <td><%= rows[i].price %></td>
+                        
+                        <td>
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="<%= rows[i].sheet + '_' + rows[i].code %>" onclick=<%= 'paid("' + rows[i].sheet + '",' + rows[i].code + ',this)' %> />
+                                <label class="custom-control-label" for="<%= rows[i].sheet + '_' + rows[i].code %>"></label>
+                            </div>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control form-control-sm" onchange=<%= 'remark("' + rows[i].sheet + '",' + rows[i].code + ',this)' %> />
+                        </td>
+                    </tr>    
+                <% } %>
+                    <tr>
+                        <td colspan="3" class="text-right"><b>Thành tiền</b></td>
+                        <td colspan="3"><%= rows.reduce((a, b) => a + (+b.price || 0), 0) %></td>
+                    </tr>  
+            </tbody>
+        </table>
+
+        <% if(error){ %>
+            <div class="alert alert-danger" role="alert">
+                <%= error %>
+            </div>
+        <% } %>
+    </div>
+
+    <footer>
+        <p class="text-center">TPBank: DINH QUOC BAO - 0156 8030 001</p>
+    </footer>
+</body>
+<script src="admin.js"></script>
+</html>

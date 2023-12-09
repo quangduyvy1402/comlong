@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Lịch sử ăn cơm</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+    <header class="navbar navbar-expand navbar-dark flex-md-row" style="background-color: #563d7c">
+        <h3 class="text-white">Quán cơm yêu thương</h3>                    
+    </header>
+
+    <div class="container">       
+        <form method="GET" action="search">
+            <div class="form-group input-group mx-auto pt-2 col-lg-4 col-sm-8 col-xs-12">
+                <div class="col">
+                    <input type="text" name="account" class="form-control text-center" id="account" value="<%=account%>" placeholder="Nhập account của bạn">
+                </div>
+                <button type="submit" class="btn btn-success">Confirm</button>
+            </div>
+        </form>
+            
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">Ngày</th>
+                    <th scope="col">Món</th>
+                    <th scope="col">Topping</th>
+                    <th scope="col">Giá</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for (var i = 0; i < rows.length; i++) { %>
+                    <tr>
+                        <td><%= rows[i].date %></td>
+                        <td><%= rows[i].food %></td>
+                        <td><%= rows[i].topping %></td>
+                        <td><%= rows[i].price %></td>                        
+                    </tr>    
+                <% } %>
+                    <tr>
+                        <td colspan="3" class="text-right"><b>Thành tiền</b></td>
+                        <td><%= rows.reduce((a, b) => a + (+b.price || 0), 0) %></td>
+                    </tr>  
+            </tbody>
+        </table>
+
+        <% if(error){ %>
+            <div class="alert alert-danger" role="alert">
+                <%= error %>
+            </div>
+        <% } %>
+    </div>
+
+    <footer>
+        <p class="text-center">TPBank: DINH QUOC BAO - 0156 8030 001</p>
+    </footer>
+</body>
+</html>
